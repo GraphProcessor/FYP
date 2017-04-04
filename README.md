@@ -2,7 +2,7 @@
 
 ## Status
 
-- add license and readme files.
+- add license and readme files, add [.gitignore](.gitignore).
 - rename two directories as [web_app](web_app) and [community_detection_algos](community_detection_algos)
 - rename post processing script as [post_processing_files.py](community_detection_algos/post_processing_files.py), 
 and format that script with pycharm
