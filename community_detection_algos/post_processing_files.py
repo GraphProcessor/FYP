@@ -1,6 +1,5 @@
 import networkx as nx
 import re
-from metrics.link_belong_modularity import *
 import json
 
 
@@ -27,11 +26,11 @@ def get_community_result(file_path):
         whole_time_str = get_val('whole execution time', lines)
         comm_list = eval(name_res_str)
         iterations = get_val('Iterations', lines)
-        itera=[None] * int(iterations)
-        for i in range(int(iterations),0,-1):
-            #print str(i)
-            itera[i-1] = get_val('i'+str(i),lines)
-            #print itera[i-1]
+        itera = [None] * int(iterations)
+        for i in range(int(iterations), 0, -1):
+            # print str(i)
+            itera[i - 1] = get_val('i' + str(i), lines)
+            # print itera[i-1]
         for comm in comm_list:
             comm.sort()
         comm_list.sort(key=lambda comm: -len(comm))
@@ -43,49 +42,48 @@ def print_comm(comm_list):
     for comm in comm_list:
         print comm
 
-def adjacency_list_print(graph,comm):
-        z = []
-        for n,nbrs in graph.adjacency_iter():
-            if n in comm:
-                for x,nbr in nbrs.items():
-                    if x>n and x in comm:
-                        l = str(n)+','+str(x)
-                        z.append(l)
-        return z
 
+def adjacency_list_print(graph, comm):
+    z = []
+    for n, nbrs in graph.adjacency_iter():
+        if n in comm:
+            for x, nbr in nbrs.items():
+                if x > n and x in comm:
+                    l = str(n) + ',' + str(x)
+                    z.append(l)
+    return z
 
 
 def print_adjacency_list(iterations, itera, graph, algorithm):
     x = {}
     q = {}
-    #print '{'
-    for i in range(0,int(iterations)):
-        #print '"',i,'":'
+    # print '{'
+    for i in range(0, int(iterations)):
+        # print '"',i,'":'
         y = {}
         comm_list = eval(itera[i])
         j = 0
-        for comm in comm_list:#indent 1
-            #print '"',j,'":'
-            #print '['
-            z = adjacency_list_print(graph,comm)
-            #print '],'
+        for comm in comm_list:  # indent 1
+            # print '"',j,'":'
+            # print '['
+            z = adjacency_list_print(graph, comm)
+            # print '],'
             y[j] = z
-            j+=1
+            j += 1
         x[i] = y
     q['Communities'] = x
-    q ['Algorithm'] = algorithm
+    q['Algorithm'] = algorithm
     return q
-    #print '}'
-
+    # print '}'
 
 
 if __name__ == '__main__':
     graph = get_graph_info('demo_graph.csv')
-    #print 'num nodes:', graph.number_of_nodes(), 'num edges:', graph.number_of_edges()
+    # print 'num nodes:', graph.number_of_nodes(), 'num edges:', graph.number_of_edges()
     comm_num, comm_list, run_time, iterations, itera, algorithm = get_community_result('demo_result_demon.txt')
     avg_comm_size = sum(map(lambda ele: len(ele), comm_list)) / comm_num
-    #print 'comm num:', comm_num, 'avg comm size:', avg_comm_size, 'whole algorithm cis execution time:', run_time
-    #print cal_modularity(graph, comm_list)
+    # print 'comm num:', comm_num, 'avg comm size:', avg_comm_size, 'whole algorithm cis execution time:', run_time
+    # print cal_modularity(graph, comm_list)
     with open('result.json', 'w') as f:
-        json.dump(print_adjacency_list(iterations, itera, graph, algorithm), f, separators=(',',':'))
-    #print_comm(comm_list)
+        json.dump(print_adjacency_list(iterations, itera, graph, algorithm), f, separators=(',', ':'))
+        # print_comm(comm_list)
