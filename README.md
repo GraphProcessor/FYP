@@ -26,7 +26,8 @@ import os
 
 if __name__ == '__main__':
     mount_dir_path = os.path.abspath(os.pardir)
-    os.system('docker run  -v ' + mount_dir_path + ':/opt -it yche/yche-dev-env zsh')
+    os.system('docker run  -v ' + mount_dir_path + ':/opt -it yche/yche-dev-env /bin/bash -c "cd /opt/; '
+                                                   'mkdir -p build; cd build; cmake ../src; make; zsh"')
 ```
 
 - list all docker containers
@@ -41,7 +42,7 @@ docker ps
 docker kill container-id
 ```
 
-- use docker container, where the output is redirected to your local terminal environment
+- finally, use docker container(be sure that your container is running via `docker ps`), and the output is redirected to your local terminal environment
 
 ```zsh
 docker exec 78e30f86c2d5 /opt/build/algorithm_demo/demo_cis /opt/small_datasets/karate_edges_input.csv
