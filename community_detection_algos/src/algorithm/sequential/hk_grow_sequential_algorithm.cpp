@@ -1,10 +1,8 @@
 //
 // Created by cheyulin on 1/5/17.
 //
-#include <iostream>
+
 #include "hk_grow_sequential_algorithm.h"
-using yche::Edge;
-int c = 0;
 
 namespace yche {
     HKGrow::HKGrow(unique_ptr<Graph> graph_ptr, double t, double eps) : t_(t), graph_ptr_(std::move(graph_ptr)) {
@@ -204,8 +202,6 @@ namespace yche {
     }
 
     HKGrow::CommunityVec HKGrow::ExecuteHRGRow() {
-        cout<<"Algorithm: HKGrow";
-        cout<<endl;
         auto seeds_vec = vector<vector<size_t>>();
         seeds_vec.reserve(num_vertices(*graph_ptr_));
         auto vp = vertices(*graph_ptr_);
@@ -214,12 +210,7 @@ namespace yche {
         for (auto &seeds:seeds_vec) {
             auto stats_cluster = HyperCluster(seeds);
             MergeCommToGlobal(std::get<1>(stats_cluster));
-            c++;
-            cout<<"i"<<c<<": ";
-            cout<<overlap_community_vec_;
         }
-        cout<<"Iterations:"<<c<<endl;
-        cout<<endl;
         return overlap_community_vec_;
     }
 }
