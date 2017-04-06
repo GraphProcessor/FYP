@@ -21,29 +21,36 @@ var Layout = Dracula.Layout.Spring;
 
 var iter_res_dict = require('./cis.json');
 var $ = require("jquery");
+var time_out_num = 0;
 
-$.each(iter_res_dict, function (iteration_id, community_dict) {
-    setTimeout(function () {
-        console.log("iter id:" + iteration_id);
-        console.log("community_list:" + JSON.stringify(community_dict));
-        $("#global").append("<div id='iter" + iteration_id + "'></div>");
+$(document).ready(function () {
+    console.log("dom ready");
+    $.each(iter_res_dict, function (iteration_id, community_dict) {
+        console.log('what is iter:' + iteration_id);
 
-        $.each(community_dict, function (comm_id, edge_list) {
-            var graph = new Graph();
+        setTimeout(function () {
+            console.log("iter id:" + iteration_id);
+            console.log("community_list:" + JSON.stringify(community_dict));
+            $("#global").append("<div id='iter" + iteration_id + "'></div>");
 
-            $.each(edge_list, function (idx) {
-                var edge = edge_list[idx].split(',');
-                console.log('edge:' + JSON.stringify(edge));
-                graph.addEdge(edge[0], edge[1]);
+            $.each(community_dict, function (comm_id, edge_list) {
+                var graph = new Graph();
+
+                $.each(edge_list, function (idx) {
+                    var edge = edge_list[idx].split(',');
+                    console.log('edge:' + JSON.stringify(edge));
+                    graph.addEdge(edge[0], edge[1]);
+                });
+
+                var layouter = new Layout(graph);
+                layouter.layout();
+
+                var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
+                renderer.draw();
             });
-
-            var layouter = new Layout(graph);
-            layouter.layout();
-
-            var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
-            renderer.draw();
-        });
-    }, 3000)
+        }, 3000 * time_out_num);
+        time_out_num += 1
+    });
 });
 
 
