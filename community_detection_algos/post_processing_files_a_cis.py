@@ -78,12 +78,15 @@ def print_adjacency_list(iterations, itera, graph, algorithm):
 
 
 if __name__ == '__main__':
+    print "done algorithm"
     graph = get_graph_info('small_datasets/collaboration_edges_input.csv')
     # print 'num nodes:', graph.number_of_nodes(), 'num edges:', graph.number_of_edges()
     comm_num, comm_list, run_time, iterations, itera, algorithm = get_community_result('../web_app/a_cis.txt')
     avg_comm_size = sum(map(lambda ele: len(ele), comm_list)) / comm_num
     # print 'comm num:', comm_num, 'avg comm size:', avg_comm_size, 'whole algorithm cis execution time:', run_time
     # print cal_modularity(graph, comm_list)
+    a = print_adjacency_list(iterations, itera, graph, algorithm)
+    print "dumping into json"
     with open('../web_app/result.json', 'w') as f:
-        json.dump(print_adjacency_list(iterations, itera, graph, algorithm), f, separators=(',', ':'))
+        json.dump(a, f, separators=(',', ':'))
         # print_comm(comm_list)
