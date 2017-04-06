@@ -19,7 +19,7 @@ var Layout = Dracula.Layout.Spring;
  }
  */
 
-var iter_res_dict = require('./cis.json');
+var iter_res_dict = require('./toy_graph.json');
 var $ = require("jquery");
 var time_out_num = 0;
 
@@ -31,6 +31,8 @@ $(document).ready(function () {
         setTimeout(function () {
             console.log("iter id:" + iteration_id);
             console.log("community_list:" + JSON.stringify(community_dict));
+
+            $("#global").empty();
             $("#global").append("<div id='iter" + iteration_id + "'></div>");
 
             $.each(community_dict, function (comm_id, edge_list) {
@@ -45,7 +47,7 @@ $(document).ready(function () {
                 var layouter = new Layout(graph);
                 layouter.layout();
 
-                var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
+                var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
                 renderer.draw();
             });
         }, 3000 * time_out_num);

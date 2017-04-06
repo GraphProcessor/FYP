@@ -1,0 +1,15 @@
+{
+  "name": "web_app",
+  "version": "1.0.0",
+  "description": "jquery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphdracula": "^1.1.2",
+    "raphael": "^2.2.7"
+  }
+}
