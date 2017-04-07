@@ -48,7 +48,7 @@ def adjacency_list_print(graph, comm):
     for n, nbrs in graph.adjacency_iter():
         if n in comm:
             for x, nbr in nbrs.items():
-                if x > n and x in comm:
+                if x in comm and x > n:
                     l = str(n) + ',' + str(x)
                     z.append(l)
     return z
@@ -59,11 +59,11 @@ def print_adjacency_list(iterations, itera, graph, algorithm):
     q = {}
     # print '{'
     for i in range(0, int(iterations)):
-        # print '"',i,'":'
+        #print '"',i,'":'
         y = {}
         comm_list = eval(itera[i])
         j = 0
-        for comm in comm_list:  # indent 1
+        for comm in comm_list:
             # print '"',j,'":'
             # print '['
             z = adjacency_list_print(graph, comm)
@@ -78,7 +78,6 @@ def print_adjacency_list(iterations, itera, graph, algorithm):
 
 
 if __name__ == '__main__':
-    print "done algorithm"
     graph = get_graph_info('small_datasets/collaboration_edges_input.csv')
     # print 'num nodes:', graph.number_of_nodes(), 'num edges:', graph.number_of_edges()
     comm_num, comm_list, run_time, iterations, itera, algorithm = get_community_result('../web_app/a_cis.txt')
@@ -86,7 +85,6 @@ if __name__ == '__main__':
     # print 'comm num:', comm_num, 'avg comm size:', avg_comm_size, 'whole algorithm cis execution time:', run_time
     # print cal_modularity(graph, comm_list)
     a = print_adjacency_list(iterations, itera, graph, algorithm)
-    print "dumping into json"
     with open('../web_app/result.json', 'w') as f:
         json.dump(a, f, separators=(',', ':'))
         # print_comm(comm_list)
