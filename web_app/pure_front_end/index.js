@@ -19,45 +19,10 @@ var Layout = Dracula.Layout.Spring;
  }
  */
 
-//var iter_res_dict = require('./toy_graph.json');
+var iter_res_dict = require('./toy_graph.json');
 var $ = require("jquery");
 var time_out_num = 0;
 var iter_res_dict;
-
-
-// $.ajax({
-//     url: "toy_graph.json",
-//     success: function(response) {
-//         iter_res_dict = response;
-//     }
-// });
-
-
-// call server.py
-$.ajax({
-    //type: "POST",
-    url: "server.py",
-    //dataType: 'json',
-    success: function (response) {
-        console.log(response);
-       console.log("Done1");
-    }
-});
-console.log("Finished Done1");
-
-// run a_cis.py
-$.ajax({
-    //type: "POST",
-    url: "a_cis.py",
-    //dataType: 'json',
-    success: function (response) {
-        console.log(response);
-        console.log("Done2");
-        //iter_res_dict = JSON.parse(response);
-    }
-});
-console.log("Finished Done2");
-
 
 $(document).ready(function () {
     console.log("dom ready");
