@@ -20,9 +20,45 @@ var Layout = Dracula.Layout.Spring;
  }
  */
 
-var iter_res_dict = require('./toy_graph.json');
+//var iter_res_dict = require('./toy_graph.json');
 var $ = require("jquery");
 var time_out_num = 0;
+var iter_res_dict;
+
+
+// $.ajax({
+//     url: "toy_graph.json",
+//     success: function(response) {
+//         iter_res_dict = response;
+//     }
+// });
+
+
+// call server.py
+$.ajax({
+    //type: "POST",
+    url: "server.py",
+    //dataType: 'json',
+    success: function (response) {
+        console.log(response);
+       console.log("Done1");
+    }
+});
+console.log("Finished Done1");
+
+// run a_cis.py
+$.ajax({
+    //type: "POST",
+    url: "a_cis.py",
+    //dataType: 'json',
+    success: function (response) {
+        console.log("Done2");
+        console.log(response);
+        //iter_res_dict = JSON.parse(response);
+    }
+});
+console.log("Finished Done2");
+
 
 $(document).ready(function () {
     console.log("dom ready");
@@ -33,9 +69,7 @@ $(document).ready(function () {
             console.log("iter id:" + iteration_id);
             console.log("community_list:" + JSON.stringify(community_dict));
 
-
             $("#global").empty();
-            console.log($("#global").innerHTML);
             $("#global").append("<div id='iter" + iteration_id + "'></div>");
 
             $.each(community_dict, function (comm_id, edge_list) {
@@ -60,7 +94,7 @@ $(document).ready(function () {
 
 
 
-},{"./toy_graph.json":230,"graphdracula":2,"jquery":10}],2:[function(require,module,exports){
+},{"graphdracula":2,"jquery":10}],2:[function(require,module,exports){
 // Core
 var dracula = require('./lib/dracula').default
 
@@ -17723,32 +17757,4 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":226,"./lib/rng":227}],230:[function(require,module,exports){
-module.exports={
-  "0": {
-    "0": [
-      "0,1",
-      "0,5"
-    ]
-  },
-  "1": {
-    "0": [
-      "0,1",
-      "0,5"
-    ]
-  },
-  "2": {
-    "0": [
-      "0,1",
-      "0,5"
-    ],
-    "1": [
-      "1,2",
-      "2,3",
-      "2,7",
-      "3,4",
-      "4,7"
-    ]
-  }
-}
-},{}]},{},[1]);
+},{"./lib/bytesToUuid":226,"./lib/rng":227}]},{},[1]);
