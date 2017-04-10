@@ -20,39 +20,42 @@ var Layout = Dracula.Layout.Spring;
  */
 
 var $ = require("jquery");
-var iter_res_dict = require('./toy_graph.json');
+
+// var iter_res_dict = require('./toy_graph.json');
 var time_out_num = 0;
 
 $(document).ready(function () {
     console.log("dom ready");
-    $.each(iter_res_dict, function (iteration_id, community_dict) {
-        console.log('what is iter:' + iteration_id);
+    $.getJSON("/comm_result/cis", function (iter_res_dict) {
+        $.each(iter_res_dict, function (iteration_id, community_dict) {
+            console.log('what is iter:' + iteration_id);
 
-        setTimeout(function () {
-            console.log("iter id:" + iteration_id);
-            console.log("community_list:" + JSON.stringify(community_dict));
+            setTimeout(function () {
+                console.log("iter id:" + iteration_id);
+                console.log("community_list:" + JSON.stringify(community_dict));
 
-            var global_div = $("#global");
-            global_div.empty();
-            global_div.append("<div id='iter" + iteration_id + "'></div>");
+                var global_div = $("#global");
+                global_div.empty();
+                global_div.append("<div id='iter" + iteration_id + "'></div>");
 
-            $.each(community_dict, function (comm_id, edge_list) {
-                var graph = new Graph();
+                $.each(community_dict, function (comm_id, edge_list) {
+                    var graph = new Graph();
 
-                $.each(edge_list, function (idx) {
-                    var edge = edge_list[idx].split(',');
-                    console.log('edge:' + JSON.stringify(edge));
-                    graph.addEdge(edge[0], edge[1]);
+                    $.each(edge_list, function (idx) {
+                        var edge = edge_list[idx].split(',');
+                        console.log('edge:' + JSON.stringify(edge));
+                        graph.addEdge(edge[0], edge[1]);
+                    });
+
+                    var layouter = new Layout(graph);
+                    layouter.layout();
+
+                    var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
+                    renderer.draw();
                 });
-
-                var layouter = new Layout(graph);
-                layouter.layout();
-
-                var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
-                renderer.draw();
-            });
-        }, 3000 * time_out_num);
-        time_out_num += 1
+            }, 3000 * time_out_num);
+            time_out_num += 1
+        });
     });
 });
 
