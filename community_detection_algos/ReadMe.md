@@ -1,4 +1,9 @@
 # Parallelization for Locality-Based Algos
+## Post Processing Script Usage
+
+```zsh
+python post_processing_files.py small_datasets/collaboration_edges_input.csv build/b_cis.txt
+```
 
 ## Issues
 In community merging part for cis, best strategy is not applied, since cis expect totally including relationship.

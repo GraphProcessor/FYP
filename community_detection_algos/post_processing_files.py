@@ -2,6 +2,7 @@ import networkx as nx
 import re
 import json
 import more_itertools
+import sys
 
 
 def get_graph_info(file_path):
@@ -51,12 +52,12 @@ def print_adjacency_list(iter_num, itera, graph, algorithm):
 
 
 if __name__ == '__main__':
-    input_graph_file_path = 'small_datasets/karate_edges_input.csv'
+    print len(sys.argv)
+    input_graph_file_path = sys.argv[1] if len(sys.argv) == 3 else 'small_datasets/karate_edges_input.csv'
+    result_file_path = sys.argv[2] if len(sys.argv) == 3 else 'build/a_cis.txt'
     graph = get_graph_info(input_graph_file_path)
-
-    comm_num, comm_list, run_time, iter_num, iter_arr, algo_name = get_community_result('build/a_cis.txt')
+    comm_num, comm_list, run_time, iter_num, iter_arr, algo_name = get_community_result(result_file_path)
     avg_comm_size = sum(map(lambda ele: len(ele), comm_list)) / comm_num
-    print iter_arr
 
     edge_lists = print_adjacency_list(iter_num, iter_arr, graph, algo_name)
     with open('result.json', 'w') as f:
