@@ -17690,7 +17690,7 @@ var time_out_num = 0;
 
 $(document).ready(function () {
     console.log("dom ready");
-    $.getJSON("/comm_result/cis", function (iter_res_dict) {
+    $.getJSON("/cis_karate/comm_result", function (iter_res_dict) {
         $.each(iter_res_dict, function (iteration_id, community_dict) {
             console.log('what is iter:' + iteration_id);
 

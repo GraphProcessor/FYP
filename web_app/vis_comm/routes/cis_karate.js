@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+// change `/cis_karate` into `/`, here root directory is `/cis_karate`
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('cis_karate', {title: 'Express'});
 });
 
-/* GET home page. */
-router.get('/comm_result/cis', function (req, res, next) {
+// change `/comm_result/cis1` into `/comm_result` to make it more readable
+router.get('/comm_result', function (req, res, next) {
     const exec = require('child_process').exec;
     exec('python ./routes/python_scripts/print_test.py >routes/python_scripts/test.txt', function (error, stdout, stderr) {
         if (error) {
@@ -23,8 +23,6 @@ router.get('/comm_result/cis', function (req, res, next) {
     console.log(JSON.stringify(toy_graph_json));
     res.json(toy_graph_json);
 });
-
-
 
 
 module.exports = router;
