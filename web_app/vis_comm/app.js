@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var cis_karate = require('./routes/cis_karate');
+var demon_karate = require('./routes/demon_karate');
+var cis_collab = require('./routes/cis_collab');
+var demon_collab = require('./routes/demon_collab');
 
 var app = express();
 
@@ -24,6 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/cis_karate', cis_karate);
+app.use('/demon_karate', demon_karate);
+app.use('/cis_collab', cis_collab);
+app.use('/demon_collab', demon_collab);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
