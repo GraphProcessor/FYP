@@ -17686,8 +17686,7 @@ var time_out_num = 0;
 
 $(document).ready(function () {
     console.log("dom ready");
-    // user url `/cis_karate/comm_result/` specified in our router
-    $.getJSON("/comm_result/cis", function (iter_res_dict) {
+    $.getJSON("/demon_karate/comm_result", function (iter_res_dict) {
         $.each(iter_res_dict, function (iteration_id, community_dict) {
             console.log('what is iter:' + iteration_id);
 
@@ -17714,7 +17713,7 @@ $(document).ready(function () {
                     var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
                     renderer.draw();
                 });
-            }, 3000 * time_out_num);
+            }, 1000 * time_out_num);
             time_out_num += 1
         });
     });

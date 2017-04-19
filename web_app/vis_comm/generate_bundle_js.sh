@@ -3,3 +3,4 @@ browserify views/browser_side_scripts/cis_karate.js -o public/javascripts/bundle
 browserify views/browser_side_scripts/demon_karate.js -o public/javascripts/bundle_demon_karate.js
 browserify views/browser_side_scripts/cis_collab.js -o public/javascripts/bundle_cis_collab.js
 browserify views/browser_side_scripts/demon_collab.js -o public/javascripts/bundle_demon_collab.js
+

@@ -50,7 +50,7 @@ $(document).ready(function () {
                     var layouter = new Layout(graph);
                     layouter.layout();
 
-                    var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
+                    var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
                     renderer.draw();
                 });
             }, 1000 * time_out_num);
