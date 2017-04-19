@@ -53,7 +53,7 @@ $(document).ready(function () {
                     var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
                     renderer.draw();
                 });
-            }, 3000 * time_out_num);
+            }, 1000 * time_out_num);
             time_out_num += 1
         });
     });
