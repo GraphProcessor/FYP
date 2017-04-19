@@ -1,4 +1,23 @@
 # Parallelization for Locality-Based Algos
+## Exec DOcker Script Usage
+
+install networkx first
+
+```zsh
+pip install networkx
+pip install more_itertools
+```
+
+result is in `result.json`
+
+```zsh
+python exec_docker.py demo_cis karate_edges_input.csv
+python exec_docker.py demo_cis collaboration_edges_input.csv
+
+python exec_docker.py demo_demon karate_edges_input.csv
+python exec_docker.py demo_demon collaboration_edges_input.csv
+```
+
 ## Post Processing Script Usage
 
 ```zsh

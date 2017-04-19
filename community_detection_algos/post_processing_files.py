@@ -3,6 +3,7 @@ import re
 import json
 import more_itertools
 import sys
+import os
 
 
 def get_graph_info(file_path):
@@ -47,18 +48,24 @@ def get_community_result(file_path):
 def print_adjacency_list(iter_num, itera, graph, algorithm):
     iter_dict = {}
     for i in xrange(iter_num):
-        iter_dict[i] = [map(lambda edge: ','.join(map(str, edge)), graph.subgraph(comm).edges()) for comm in itera[i]]
-    return {'Communities': iter_dict, 'Algorithm': algorithm}
+        tmp_comm_list = [map(lambda edge: ','.join(map(str, edge)), graph.subgraph(comm).edges()) for comm in itera[i]]
+        iter_dict[i] = dict(zip(range(len(tmp_comm_list)), tmp_comm_list))
+    # return {'Communities': iter_dict, 'Algorithm': algorithm}
+    return iter_dict
 
 
 if __name__ == '__main__':
     print len(sys.argv)
     input_graph_file_path = sys.argv[1] if len(sys.argv) == 3 else 'small_datasets/karate_edges_input.csv'
     result_file_path = sys.argv[2] if len(sys.argv) == 3 else 'build/a_cis.txt'
+
+    result_json_file = os.path.basename(result_file_path).replace('txt', 'json')
+
     graph = get_graph_info(input_graph_file_path)
     comm_num, comm_list, run_time, iter_num, iter_arr, algo_name = get_community_result(result_file_path)
     avg_comm_size = sum(map(lambda ele: len(ele), comm_list)) / comm_num
 
+    os.system('mkdir -p json_files')
     edge_lists = print_adjacency_list(iter_num, iter_arr, graph, algo_name)
-    with open('result.json', 'w') as f:
+    with open('json_files' + os.sep + result_json_file, 'w') as f:
         json.dump(edge_lists, f, separators=(',', ':'))

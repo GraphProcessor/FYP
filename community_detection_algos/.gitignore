@@ -39,3 +39,4 @@ build
 *.app
 
 output_files
+json_files
