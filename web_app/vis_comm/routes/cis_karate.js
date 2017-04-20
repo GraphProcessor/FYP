@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 // change `/comm_result/cis1` into `/comm_result` to make it more readable
 router.get('/comm_result', function (req, res, next) {
     const exec = require('child_process').execSync;
-    exec('cd ../../community_detection_algos; python exec_docker.py demo_cis karate_edges_input.csv; echo done > done', function (error, stdout, stderr) {
+    exec('cd ../../community_detection_algos; python exec_docker.py demo_cis karate_edges_input.csv', function (error, stdout, stderr) {
         if (error) {
             console.error(error.toString());
             return;

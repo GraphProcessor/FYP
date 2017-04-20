@@ -1,4 +1,9 @@
 # Vis Comm Design
+## Node Version
+
+requires node version 0.12+,
+
+
 ## Build
 
 ```zsh
