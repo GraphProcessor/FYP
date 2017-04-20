@@ -1,10 +1,19 @@
 # FYP
+## Links
+
+content | url
+--- | ---
+index | http://localhost:3000
+cis karate | http://localhost:3000/cis_karate
+cis collabration | http://localhost:3000/cis_collab
+demon karate | http://localhost:3000/demon_karate
+demon collabration | http://localhost:3000/demon_collab
 
 ## Status
 
 - add license and readme files, add [.gitignore](.gitignore).
 - rename two directories as [web_app](web_app) and [community_detection_algos](community_detection_algos)
-- rename post processing script as [post_processing_files.py](community_detection_algos/post_processing_files.py), 
+- rename post processing script as [post_processing_files.py](community_detection_algos/post_processing_files.py),
 and format that script with pycharm
 - update [run_docker.py](community_detection_algos/docker/run_docker.py), remove `sudo`
 
@@ -17,8 +26,8 @@ and format that script with pycharm
 sudo usermod -aG docker $USER
 ```
 
-- create a new docker container, see [run_docker.py](community_detection_algos/docker/run_docker.py), with mounting, 
-`yche/yche-dev-env` is in [a docker hub repo](https://hub.docker.com/r/yche/yche-dev-env/). `-it` stands for interative mode, 
+- create a new docker container, see [run_docker.py](community_detection_algos/docker/run_docker.py), with mounting,
+`yche/yche-dev-env` is in [a docker hub repo](https://hub.docker.com/r/yche/yche-dev-env/). `-it` stands for interative mode,
 `zsh` is the command to be executed when i goes into the interactive environment.
 
 ```python
