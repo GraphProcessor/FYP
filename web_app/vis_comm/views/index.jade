@@ -2,6 +2,48 @@ extends layout
 
 block content
     #paper
-    #global.container
+    //#global.container
     script(src='javascripts/bundle_index.js')
 
+    body
+        .navbar.navbar-inverse.navbar-fixed-top
+            .navbar-inner
+                .container
+                    a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    //a.brand(href='#') Visualization of Overlapping Community Detection Algorithms
+                    .container
+                        h2 Visualization of Overlapping Community Detection Algorithms
+                        p Select the Algorithm and Dataset combination you would like to visualize:
+
+                    .nav-collapse.collapse
+                        ul.nav
+                            //li.active
+                            //    a(href='#') Home
+                            //li
+                            //    a(href='#about') About
+                            //li
+                            //    a(href='#contact') Contact
+                            h2
+                                button#btn_cis_karate Algorithm: CIS, Dataset: Karate
+                            h2
+                                button#btn_cis_collab Algorithm: CIS, Dataset: Collaboration
+                            h2
+                                button#btn_demon_karate Algorithm: DEMON, Dataset: Karate
+                            h2
+                                button#btn_demon_collab Algorithm: DEMON, Dataset: Collaboration
+
+
+                    // /.nav-collapse
+
+        //.container
+        //    img(src = '/vis_comm/views/18052620_1413195488730868_533348678_n.png')
+        //
+        //.container
+        //    h1 Bootstrap starter template
+        //    p
+        //        | Use this document as a way to quick start any new project.
+        //        br
+        //        | All you get is this message and a barebones HTML document.

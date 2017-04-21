@@ -3,5 +3,13 @@ extends layout
 block content
     #paper_cis_karate
     #global.container
-    script(src='javascripts/bundle_cis_karate.js')
+            button#btn_pause_cis_karate Pause Visualization
+            button#btn_speed_fast_cis_karate Fast speed
+            button#btn_speed_normal_cis_karate Normal speed
+            button#btn_speed_slow_cis_karate Slow speed
+            h2
+                div#iterationID
+        div.col-md-6
+            #vis.container
 
+    script(src='javascripts/bundle_cis_karate.js')

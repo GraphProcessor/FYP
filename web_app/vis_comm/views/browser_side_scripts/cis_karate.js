@@ -22,10 +22,13 @@ var Layout = Dracula.Layout.Spring;
 var $ = require("jquery");
 
 // var iter_res_dict = require('./toy_graph.json');
+//$('#btn_cis_karate').on('click', '/cis_karate');
 var time_out_num = 0;
+var visSpeed = 2000;
 
 $(document).ready(function () {
     console.log("dom ready");
+
     $.getJSON("/cis_karate/comm_result", function (iter_res_dict) {
         $.each(iter_res_dict, function (iteration_id, community_dict) {
             console.log('what is iter:' + iteration_id);
@@ -34,9 +37,10 @@ $(document).ready(function () {
                 console.log("iter id:" + iteration_id);
                 console.log("community_list:" + JSON.stringify(community_dict));
 
-                var global_div = $("#global");
+                $('#iterationID').html("Iteration ID: " + iteration_id);
+                var global_div = $("#vis");
                 global_div.empty();
-                global_div.append("<div id='iter" + iteration_id + "'></div>");
+                global_div.append("<div id='iter" + iteration_id + "' class='col-md-3'></div>");
 
                 $.each(community_dict, function (comm_id, edge_list) {
                     var graph = new Graph();
@@ -53,8 +57,10 @@ $(document).ready(function () {
                     var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
                     renderer.draw();
                 });
-            }, 1000 * time_out_num);
+
+            }, visSpeed * time_out_num);
             time_out_num += 1
+
         });
     });
 });

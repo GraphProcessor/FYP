@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/cis_karate', cis_karate);
-app.use('/demon_karate', demon_karate);
+app.use('/demon_karate', demon_karate); // var demon_karate will ONLY handle the url stream with prefix of '/demon_karate'
 app.use('/cis_collab', cis_collab);
 app.use('/demon_collab', demon_collab);
 

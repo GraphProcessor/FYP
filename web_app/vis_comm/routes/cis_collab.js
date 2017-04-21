@@ -13,7 +13,7 @@ router.get('/comm_result', function (req, res, next) {
     const exec = require('child_process').execSync;
     //exec('python ./routes/python_scripts/print_test.py >routes/python_scripts/test.txt', function (error, stdout, stderr) {
     exec('cd ../../community_detection_algos; python exec_docker.py demo_cis collaboration_edges_input.csv', function (error, stdout, stderr) {
-        if (error) {
+        if (error) {                                // ^ takes 2 params: exec name + input
             console.error(error.toString());
             return;
         }
