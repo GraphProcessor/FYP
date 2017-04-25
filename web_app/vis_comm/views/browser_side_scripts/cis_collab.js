@@ -34,7 +34,8 @@ $(document).ready(function () {
                 console.log("iter id:" + iteration_id);
                 console.log("community_list:" + JSON.stringify(community_dict));
 
-                var global_div = $("#global");
+                $('#iterationID').html("Iteration ID: " + iteration_id);
+                var global_div = $("#vis");
                 global_div.empty();
                 global_div.append("<div id='iter" + iteration_id + "'></div>");
 
@@ -50,7 +51,7 @@ $(document).ready(function () {
                     var layouter = new Layout(graph);
                     layouter.layout();
 
-                    var renderer = new Renderer("#iter" + iteration_id, graph, 700, 600);
+                    var renderer = new Renderer("#iter" + iteration_id, graph, 500, 400);
                     renderer.draw();
                 });
             }, 1000 * time_out_num);
