@@ -20,87 +20,65 @@ var Layout = Dracula.Layout.Spring;
  */
 
 var $ = require("jquery");
-
-// var iter_res_dict = require('./toy_graph.json');
-//$('#btn_cis_karate').on('click', '/cis_karate');
 var time_out_num = 0;
-var visTime = 2000;
+var vis_time = 2000;
 var global_iter_begin = -1;
 var iter_res_dict;
-
-// var filterDict = $.grep(Object.keys(iter_res_dict), function (iteration_id, community_dict) {
-//     console.log(community_dict);
-//     var checkstat = iteration_id > global_iter_begin;
-//     console.log("CHECK TRUE OR FALSE: " + checkstat);
-//     return iteration_id > global_iter_begin;
-// });
+var work_arr = [];
 
 function displayFrom() {
-
-    console.log(JSON.stringify(iter_res_dict));
+    // console.log(JSON.stringify(iter_res_dict));
+    $.each(work_arr, function (work) {
+        console.log('work:' + work);
+        clearTimeout(work);
+    });
+    work_arr = [];
 
     time_out_num = 0;
     $.each(iter_res_dict, function (iteration_id, community_dict) {
-        // console.log('what is iter:' + iteration_id);
+        if (iteration_id > global_iter_begin) {
+            console.log('global_iter_beg:' + global_iter_begin);
+            work_arr.push(
+                setTimeout(function () {
+                    $('#iterationID').html("Iteration ID: " + iteration_id);
+                    var global_div = $("#vis");
+                    global_div.empty();
+                    global_div.append("<div id='iter" + iteration_id + "' class='col-md-3'></div>");
 
-        if(iteration_id > global_iter_begin) {
+                    $.each(community_dict, function (comm_id, edge_list) {
+                        var graph = new Graph();
+                        $.each(edge_list, function (idx) {
+                            var edge = edge_list[idx].split(',');
+                            graph.addEdge(edge[0], edge[1]);
+                        });
 
-            setTimeout(function () {
-                // console.log("iter id:" + iteration_id);
-                // console.log("community_list:" + JSON.stringify(community_dict));
+                        var layouter = new Layout(graph);
+                        layouter.layout();
 
-                $('#iterationID').html("Iteration ID: " + iteration_id);
-                var global_div = $("#vis");
-                global_div.empty();
-                global_div.append("<div id='iter" + iteration_id + "' class='col-md-3'></div>");
-
-                $.each(community_dict, function (comm_id, edge_list) {
-
-                    var graph = new Graph();
-
-                    $.each(edge_list, function (idx) {
-                        var edge = edge_list[idx].split(',');
-                        // console.log('edge:' + JSON.stringify(edge));
-
-                        graph.addEdge(edge[0], edge[1]);
+                        var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
+                        renderer.draw();
                     });
-
-                    var layouter = new Layout(graph);
-                    layouter.layout();
-
-                    var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
-                    renderer.draw();
-
                     global_iter_begin = iteration_id;
-                });
-
-            }, visTime * time_out_num); //all events have been pushed to a Q, so time is fixed now
+                }, vis_time * time_out_num)); //all events have been pushed to a Q, so time is fixed now
             time_out_num += 1 //need to cancel all Q events, and push all again
         }
-
-
     });
-
 }
 
 $(document).ready(function () {
     console.log("dom ready");
 
-    $.getJSON("/cis_karate/comm_result", function(json){
+    $.getJSON("/cis_karate/comm_result", function (json) {
         iter_res_dict = json;
-        // console.log(JSON.stringify(iter_res_dict));
-    });
-
-    displayFrom();
-
-    $("#btn_speed_fast_cis_karate").click( function(){
-        console.log("Clicked button fast");
-        clearTimeout();
-        visTime = visTime/2;
         displayFrom();
     });
 
 
+    $("#btn_speed_fast_cis_karate").click(function () {
+        console.log("Clicked button fast");
+        vis_time = vis_time / 2;
+        displayFrom();
+    });
 });
 
 
