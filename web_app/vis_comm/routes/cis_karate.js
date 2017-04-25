@@ -13,13 +13,7 @@ router.get('/', function (req, res, next) {
 router.get('/comm_result', function (req, res, next) {
 
     const exec = require('child_process').execSync;
-<<<<<<< HEAD
-
-    exec('cd ../../community_detection_algos; python exec_docker.py demo_cis karate_edges_input.csv; echo done > done', function (error, stdout, stderr) {
-
-=======
     exec('cd ../../community_detection_algos; python exec_docker.py demo_cis karate_edges_input.csv', function (error, stdout, stderr) {
->>>>>>> 5f3baead56f4eff08e76509d462fe3464c701d69
         if (error) {
             console.error(error.toString());
             return;
