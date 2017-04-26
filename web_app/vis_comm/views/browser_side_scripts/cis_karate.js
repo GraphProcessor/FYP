@@ -88,8 +88,15 @@ $(document).ready(function () {
     });
 
     $("#btn_pause_cis_karate").click(function () {
-        console.log("Clicked button pause, vis time:" + vis_time);
-        clearTimeout(id);
+        if ($(this).html() === "Resume Visualization") {
+            $(this).html('Pause Visualization');
+            recurVis();
+        }
+        else {
+            $(this).html('Resume Visualization');
+            console.log("Clicked button pause, vis time:" + vis_time);
+            clearTimeout(id);
+        }
     });
 
 });
