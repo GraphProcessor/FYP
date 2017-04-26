@@ -17685,6 +17685,7 @@ var vis_time = 2000;
 var global_iter_begin = 0;
 var global_arr;
 var iter_res_dict;
+var id;
 
 function recurVis() {
     console.log('global_iter_id:' + global_iter_begin);
@@ -17692,7 +17693,7 @@ function recurVis() {
         var iteration_id = global_iter_begin;
         var community_dict = global_arr[iteration_id];
 
-        setTimeout(function () {
+        id = setTimeout(function () {
             $('#iterationID').html("Iteration ID: " + iteration_id);
             var global_div = $("#vis");
             global_div.empty();
@@ -17732,8 +17733,8 @@ $(document).ready(function () {
 
     $("#btn_speed_normal_cis_karate").click(function () {
         console.log("Clicked button normal, vis time:" + vis_time);
+        vis_time = 2000;
     });
-
 
     $("#btn_speed_fast_cis_karate").click(function () {
         vis_time = vis_time / 2;
@@ -17746,9 +17747,10 @@ $(document).ready(function () {
     });
 
     $("#btn_pause_cis_karate").click(function () {
-        vis_time = 1000000000000000000000000000000;
         console.log("Clicked button pause, vis time:" + vis_time);
+        clearTimeout(id);
     });
+
 });
 
 
