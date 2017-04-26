@@ -72,6 +72,7 @@ $(document).ready(function () {
 
     $("#btn_speed_normal_cis_karate").click(function () {
         console.log("Clicked button normal, vis time:" + vis_time);
+        vis_time = 2000;
     });
 
     $("#btn_speed_fast_cis_karate").click(function () {
