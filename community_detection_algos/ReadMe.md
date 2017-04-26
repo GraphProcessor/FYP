@@ -1,5 +1,5 @@
 # Parallelization for Locality-Based Algos
-## Exec DOcker Script Usage
+## Exec Docker Script Usage
 
 install networkx first
 

@@ -3,7 +3,7 @@
 
 the vis_comm project is in [web_app/vis_comm](web_app/vis_comm), which requires node version 0.12+.
 
-the commmunity detection algorithms are in [community_detection_algos](community_detection_algos), which requires docker correctly installed.
+the commmunity detection algorithms are in [community_detection_algos](community_detection_algos), which requires docker correctly installed and some python modules installed.
 
 two steps:
 

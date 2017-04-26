@@ -66,8 +66,8 @@ $(document).ready(function () {
         global_arr = $.map(iter_res_dict, function (community_dict, iteration_id) {
             return [community_dict];
         });
-        console.log(JSON.stringify(global_arr));
-        recurVis()
+        // console.log(JSON.stringify(global_arr));
+        recurVis();
     });
 
 
