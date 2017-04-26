@@ -70,11 +70,20 @@ $(document).ready(function () {
         recurVis();
     });
 
+    $("#btn_speed_normal_cis_karate").click(function () {
+        console.log("Clicked button normal, vis time:" + vis_time);
+    });
 
     $("#btn_speed_fast_cis_karate").click(function () {
         vis_time = vis_time / 2;
         console.log("Clicked button fast, vis time:" + vis_time);
     });
+
+    $("#btn_speed_slow_cis_karate").click(function () {
+        vis_time = vis_time * 2;
+        console.log("Clicked button slow, vis time:" + vis_time);
+    });
+
 });
 
 
