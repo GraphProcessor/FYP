@@ -17686,47 +17686,40 @@ var Layout = Dracula.Layout.Spring;
 var $ = require("jquery");
 var time_out_num = 0;
 var vis_time = 2000;
-var global_iter_begin = -1;
+var global_iter_begin = 0;
+var global_arr;
 var iter_res_dict;
-var work_arr = [];
 
-function displayFrom() {
-    // console.log(JSON.stringify(iter_res_dict));
-    $.each(work_arr, function (work) {
-        console.log('work:' + work);
-        clearTimeout(work);
-    });
-    work_arr = [];
+function recurVis() {
+    console.log('global_iter_id:' + global_iter_begin);
+    if (global_iter_begin < global_arr.length) {
+        var iteration_id = global_iter_begin;
+        var community_dict = global_arr[iteration_id];
 
-    time_out_num = 0;
-    $.each(iter_res_dict, function (iteration_id, community_dict) {
-        if (iteration_id > global_iter_begin) {
-            console.log('global_iter_beg:' + global_iter_begin);
-            work_arr.push(
-                setTimeout(function () {
-                    $('#iterationID').html("Iteration ID: " + iteration_id);
-                    var global_div = $("#vis");
-                    global_div.empty();
-                    global_div.append("<div id='iter" + iteration_id + "' class='col-md-3'></div>");
+        setTimeout(function () {
+            $('#iterationID').html("Iteration ID: " + iteration_id);
+            var global_div = $("#vis");
+            global_div.empty();
+            global_div.append("<div id='iter" + iteration_id + "' class='col-md-3'></div>");
 
-                    $.each(community_dict, function (comm_id, edge_list) {
-                        var graph = new Graph();
-                        $.each(edge_list, function (idx) {
-                            var edge = edge_list[idx].split(',');
-                            graph.addEdge(edge[0], edge[1]);
-                        });
+            $.each(community_dict, function (comm_id, edge_list) {
+                var graph = new Graph();
+                $.each(edge_list, function (idx) {
+                    var edge = edge_list[idx].split(',');
+                    graph.addEdge(edge[0], edge[1]);
+                });
 
-                        var layouter = new Layout(graph);
-                        layouter.layout();
+                var layouter = new Layout(graph);
+                layouter.layout();
 
-                        var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
-                        renderer.draw();
-                    });
-                    global_iter_begin = iteration_id;
-                }, vis_time * time_out_num)); //all events have been pushed to a Q, so time is fixed now
-            time_out_num += 1 //need to cancel all Q events, and push all again
-        }
-    });
+                var renderer = new Renderer("#iter" + iteration_id, graph, 400, 300);
+                renderer.draw();
+            });
+
+            global_iter_begin += 1;
+            recurVis();
+        }, vis_time);
+    }
 }
 
 $(document).ready(function () {
@@ -17734,14 +17727,17 @@ $(document).ready(function () {
 
     $.getJSON("/cis_karate/comm_result", function (json) {
         iter_res_dict = json;
-        displayFrom();
+        global_arr = $.map(iter_res_dict, function (community_dict, iteration_id) {
+            return [community_dict];
+        });
+        console.log(JSON.stringify(global_arr));
+        recurVis()
     });
 
 
     $("#btn_speed_fast_cis_karate").click(function () {
-        console.log("Clicked button fast");
         vis_time = vis_time / 2;
-        displayFrom();
+        console.log("Clicked button fast, vis time:" + vis_time);
     });
 });
 
