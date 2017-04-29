@@ -96,3 +96,16 @@ after fixing conflicts
 ```zsh
 git add .
 ```
+
+- pull changes before pushing
+
+```zsh
+git status (or gst - to check for changes in tree)
+git pull origin branch-name
+git add .
+git status
+git commit -m "xxx"
+git status
+git push origin master
+git status
+```
