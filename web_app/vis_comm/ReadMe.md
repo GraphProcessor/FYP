@@ -60,3 +60,32 @@ content | detail
 [routes](routes) | express router codes
 [views](views) | jade templates and browser side scripts used by [generate_bundle_js.sh](generate_bundle_js.sh)
 [public](public) | visible by browsers, mainly including [bundle.js](public/javascripts/bundle.js) and [some css](public/stylesheets)
+
+## Git Usage 
+### Basic Commands
+
+```zsh
+git pull origin branch-name
+git add dir_path
+git commit -m "xxx"
+git push origin branch-name
+```
+
+### Basic Commands
+git status
+```zsh
+git add .
+```
+
+### Pull changes before pushing
+```zsh
+git status (or gst - to check for changes in tree)
+git pull origin branch-name
+git add .
+git status
+git commit -m "xxx"
+git status
+git push origin master
+git status
+```
+
