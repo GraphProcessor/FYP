@@ -1,111 +1,62 @@
-# FYP
-## Deploy
+# Vis Comm Design
+## Node Version
 
-the vis_comm project is in [web_app/vis_comm](web_app/vis_comm), which requires node version 0.12+.
+requires node version 0.12+,
 
-the commmunity detection algorithms are in [community_detection_algos](community_detection_algos), which requires docker correctly installed and some python modules installed.
 
-two steps:
+## Build
 
 ```zsh
-./run_docker_in_terminal0.sh
-./start_server_in_terminal1.sh
+./add_node_modules.sh
+./generate_bundle_js.sh
+npm start
 ```
 
-then check the links in the following links-table
+## Debug Info
 
-## Links
+json, see [cis comm result link](http://localhost:3000/comm_result/cis)
 
-content | url
+website, see [index link](http://localhost:3000/)
+
+## Pending Work
+
+in [routes/index.js](routes/index.js),
+
+see
+
+```javascript
+/* GET home page. */
+router.get('/comm_result/cis', function (req, res, next) {
+    var fs = require('fs');
+    var toy_graph_json = JSON.parse(fs.readFileSync('./routes/python_scripts/toy_graph.json', 'utf8'));
+    console.log(JSON.stringify(toy_graph_json));
+    res.json(toy_graph_json);
+});
+
+```
+
+change this function via invoke the python script in folder `./routes/python_scripts/`
+
+## Dir Organization
+### Util
+- [add_node_modules.sh](add_node_modules.sh), for adding node modules according to [package.json](package.json)
+
+```zsh
+npm install
+```
+
+- [generate_bundle_js.sh](generate_bundle_js.sh), for generating bundle.js to be used in a browser
+
+```zsh
+browserify views/browser_side_scripts/index.js -o public/javascripts/bundle.js
+```
+
+### Express Related
+
+content | detail
 --- | ---
-index | http://localhost:3000
-cis karate | http://localhost:3000/cis_karate
-cis collabration | http://localhost:3000/cis_collab
-demon karate | http://localhost:3000/demon_karate
-demon collabration | http://localhost:3000/demon_collab
-
-## Status
-
-- add license and readme files, add [.gitignore](.gitignore).
-- rename two directories as [web_app](web_app) and [community_detection_algos](community_detection_algos)
-- rename post processing script as [post_processing_files.py](community_detection_algos/post_processing_files.py),
-and format that script with pycharm
-- update [run_docker.py](community_detection_algos/docker/run_docker.py), remove `sudo`
-
-
-## Docker Usage
-
-- to run docker without `sudo` privilege
-
-```zsh
-sudo usermod -aG docker $USER
-```
-
-- create a new docker container, see [run_docker.py](community_detection_algos/docker/run_docker.py), with mounting,
-`yche/yche-dev-env` is in [a docker hub repo](https://hub.docker.com/r/yche/yche-dev-env/). `-it` stands for interative mode,
-`zsh` is the command to be executed when i goes into the interactive environment.
-
-```python
-import os
-
-if __name__ == '__main__':
-    mount_dir_path = os.path.abspath(os.pardir)
-    os.system('docker run  -v ' + mount_dir_path + ':/opt -it yche/yche-dev-env /bin/bash -c "cd /opt/; '
-                                                   'mkdir -p build; cd build; cmake ../src; make; zsh"')
-```
-
-- list all docker containers
-
-```zsh
-docker ps
-```
-
-- kill a docker container, where `container-id` is from `docker ps`
-
-```zsh
-docker kill container-id
-```
-
-- finally, use docker container(be sure that your container is running via `docker ps`), and the output is redirected to your local terminal environment
-
-```zsh
-docker exec 78e30f86c2d5 /opt/build/algorithm_demo/demo_cis /opt/small_datasets/karate_edges_input.csv
-```
-
-## Git Usage
-
-- basic commands
-
-```zsh
-git pull origin branch-name
-git add dir_path
-git commit -m "xxx"
-git push origin branch-name
-```
-
-- may need to resolve conflicts
-
-check commands
-
-```zsh
-git status
-```
-
-after fixing conflicts
-
-```zsh
-git add .
-```
-
-- pull changes before pushing
-
-```zsh
-git status (or gst - to check for changes in tree)
-git pull origin branch-name
-git add .
-git status
-git commit -m "xxx"
-git status
-git push origin master
-git status
-```
+[bin](bin) | used in `npm start`
+[app.js](app.js) | configure express views and routes
+[routes](routes) | express router codes
+[views](views) | jade templates and browser side scripts used by [generate_bundle_js.sh](generate_bundle_js.sh)
+[public](public) | visible by browsers, mainly including [bundle.js](public/javascripts/bundle.js) and [some css](public/stylesheets)
