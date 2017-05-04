@@ -62,37 +62,25 @@ content | detail
 [public](public) | visible by browsers, mainly including [bundle.js](public/javascripts/bundle.js) and [some css](public/stylesheets)
 
 ## Git Usage 
-### Basic Commands
 
+### Basic Commands
+Check git status
+```zsh
+git status
+gst
+```
+Add files to current directory
+```zsh
+git add .
+```
+Pull changes before pushing
 ```zsh
 git pull origin branch-name
 git add dir_path
 git commit -m "xxx"
 git push origin branch-name
 ```
-
-### Basic Commands
-git status
-```zsh
-git status
-```
-add files to current directory
-```zsh
-git add .
-```
-
-### Pull changes before pushing
-```zsh
-git status (or gst - to check for changes in tree)
-git pull origin branch-name
-git add .
-git status
-git commit -m "xxx"
-git status
-git push origin master
-git status
-```
-### Stash changes before pulling
+Stash changes before pulling
 ```zsh
 git stash 
 git pull origin master 
