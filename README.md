@@ -88,4 +88,10 @@ git status
 git push origin master
 git status
 ```
+### Stash changes before pulling
+```zsh
+git stash 
+git pull origin master 
+git stash apply
+```
 
