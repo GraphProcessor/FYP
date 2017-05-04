@@ -74,6 +74,10 @@ git push origin branch-name
 ### Basic Commands
 git status
 ```zsh
+git status
+```
+add files to current directory
+```zsh
 git add .
 ```
 
