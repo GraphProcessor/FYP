@@ -33,6 +33,14 @@ npm install
 browserify views/browser_side_scripts/index.js -o public/javascripts/bundle.js
 ```
 
+- [build.sh](build.sh), for installing npm, running browserify and starting npm
+
+```zsh
+./add_node_modules.sh
+./generate_bundle_js.sh
+npm start
+```
+
 ### Express Related
 
 content | detail
