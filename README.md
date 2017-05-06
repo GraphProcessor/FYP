@@ -21,19 +21,19 @@ website, see [index link](http://localhost:3000/)
 
 ## Dir Organization
 ### Util
-- [add_node_modules.sh](add_node_modules.sh), for adding node modules according to [package.json](package.json)
+- [add_node_modules.sh](add_node_modules.sh): for adding node modules according to [package.json](package.json)
 
 ```zsh
 npm install
 ```
 
-- [generate_bundle_js.sh](generate_bundle_js.sh), for generating bundle.js to be used in a browser
+- [generate_bundle_js.sh](generate_bundle_js.sh): for generating bundle.js to be used in a browser
 
 ```zsh
 browserify views/browser_side_scripts/index.js -o public/javascripts/bundle.js
 ```
 
-- [build.sh](build.sh), for installing npm, running browserify and starting npm
+- [build.sh](build.sh): for installing npm, running browserify and starting npm
 
 ```zsh
 ./add_node_modules.sh
