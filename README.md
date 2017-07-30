@@ -11,7 +11,7 @@ in first terminal tab, start docker container
 in second terminal tab, start web application server
 
 ```zsh
-start_server_in_terminal1.sh
+./start_server_in_terminal1.sh
 ```
 
 ## Implementation
